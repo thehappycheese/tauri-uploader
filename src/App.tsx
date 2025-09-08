@@ -4,6 +4,7 @@ import "./App.css";
 
 import {Upload} from "./Upload"
 import { SpecialNumberInput } from "./Components";
+import logo from "./assets/128x128.png"
 
 type UserInfo = {
     display_name: string,
@@ -47,7 +48,10 @@ function App() {
 
     return (
         <main class="container">
-            <h1 class="text-3xl p-5">Uploader</h1>
+            <div class="flex justify-center items-center gap-5">
+                <img src={logo}/>
+                <h1 class="text-3xl p-5">Uploader</h1>
+            </div>
 
             <p class="m-5">{ls().type} <button type="button" onClick={()=>login()}>Login</button></p>
             

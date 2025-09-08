@@ -1,6 +1,6 @@
 
 
-import { Component, ComponentProps, createSignal } from "solid-js";
+import { ComponentProps, createSignal } from "solid-js";
 
 import { Button as KButton } from "@kobalte/core/button";
 import { TextField as KTextField } from "@kobalte/core/text-field";
@@ -16,11 +16,11 @@ export const NavButton = (props: ComponentProps<typeof KButton>) => {
 	return <KButton class="nav-button" {...props} />;
 };
 
-export const TextField = (props:ComponentProps<typeof KTextField> & {label:string}) => {
+export const TextField = (props:ComponentProps<typeof KTextField> & {label:string, error_message:string}) => {
 	return <KTextField class="flex flex-col gap-2" {...props}>
         <KTextField.Label>{props.label}</KTextField.Label>
         <KTextField.Input class="inline-flex rounded-md p-1 outline-none bg-white text-gray-900 border-gray-200 border placeholder:text-gray-500 focus-visible:outline-2 focus-visible:text-blue-600 outline-offset-2 [data-invalid]:text-red-500 [data-invalid]:border-red-500 hover:border-gray-800"/>
-        <KTextField.ErrorMessage class="input-error-message">Must be of the format DDD DDD etc</KTextField.ErrorMessage>
+        <KTextField.ErrorMessage class="input-error-message">{props.error_message}</KTextField.ErrorMessage>
     </KTextField>;
 };
 
@@ -56,15 +56,12 @@ export const SpecialNumberInput = (props:ComponentProps<typeof KTextField>) => {
             }
         });
     }
-	return <KTextField 
-        class="text-field"
+	return <TextField 
         validationState={(untouched() || (props.value && /(^\d{3}  \d{2}$)|(^\d{3} \d{3}$)/.test(props.value)) ? "valid" :"invalid")}
         {...props}
         onChange={set_value}
+        label="Special Number"
+        error_message="Must be of the format DDD DDD etc"
         required
-    >
-        <KTextField.Label>Special Number</KTextField.Label>
-        <KTextField.Input ref={input_ref!}  class="text-field__input" />
-        <KTextField.ErrorMessage class="input-error-message">Must be of the format DDD DDD etc</KTextField.ErrorMessage>
-    </KTextField>;
+    />;
 };

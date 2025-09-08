@@ -8,8 +8,8 @@ fn greet(name: &str) -> String {
 #[tauri::command]
 async fn login()->Result<auth::UserInfo, ()>{
     let a = auth::AzureAuth::new(
-        "",
-        "",
+        env!("UPLOADER_AZURE_CLIENT_ID"),
+        env!("UPLOADER_AZURE_TENANT_ID"),
     ).map_err(|_|())?;
     let access_token = a.authenticate().await.map_err(|_|())?;
     println!("Got access token!");
